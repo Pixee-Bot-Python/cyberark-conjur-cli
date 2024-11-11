@@ -8,6 +8,7 @@ This module represents an object that holds conjurrc data
 
 from yaml import dump as yaml_dump
 from yaml import load as yaml_load
+import yaml
 
 try:
     from yaml import CLoader as YamlLoader
@@ -49,7 +50,7 @@ class ConjurrcData:
         """
         try:
             with open(conjurrc_path, 'r') as conjurrc:
-                loaded_conjurrc = yaml_load(conjurrc, Loader=YamlLoader)
+                loaded_conjurrc = yaml_load(conjurrc, Loader=yaml.SafeLoader)
                 # For backwards compatibility with CLI 7.0-7.1, we accept the 'conjur_url' and 'conjur_account'
                 # keys as well as the 'appliance_url' and 'account' keys. When writing the config file, we write
                 # only the 'appliance_url' and 'account' keys which are used in CLI 6.x and 7.2+ as
