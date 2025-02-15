@@ -12,6 +12,7 @@ from typing import Union
 
 # Third Party
 from yaml import load, dump
+import yaml
 
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
@@ -45,7 +46,7 @@ class Config():
         logging.debug(f"Fetching connection details from filesystem '{config_file}'...")
         config = None
         with open(config_file, 'r') as config_fp:
-            config = load(config_fp, Loader=Loader)
+            config = load(config_fp, Loader=yaml.SafeLoader)
 
         if not config:
             raise ConfigurationMissingException
